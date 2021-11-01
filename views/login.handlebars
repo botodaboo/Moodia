@@ -1,0 +1,24 @@
+<div class="container loginfield">
+    <form action="/login" method="POST">
+        <div class="row">
+        <div class="vl">
+            <span class="vl-innertext">or</span>
+        </div>
+
+        <div class="col collogin">
+            <a href="/auth/google" class="google btn"><i class="fa fa-google fa-fw">
+            </i> Login with Google
+            </a>
+        </div>
+
+        <div class="col collogin">
+            <input class="logininput form-control" type="text" name="username" placeholder="Username" required>
+            <input class="logininput form-control" type="password" name="password" placeholder="Password" required>
+            <input class="logininput form-control" type="submit" value="Login">
+        </div>
+        <div>{{message}}</div>
+        </div>
+    </form>
+</div>
+
+

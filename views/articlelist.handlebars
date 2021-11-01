@@ -1,0 +1,13 @@
+<div class="container studentlistfield mt-3">
+        <ul class="student-list clearfix">
+        {{#each articles}}
+            <li class="student-item">
+                <a href="/article/{{_id}}">
+                    <div class="student-info">
+                        <h4>{{title}}</h4>                                      
+                    </div>
+                </a>
+            </li>
+        {{/each}}    
+        </ul>
+</div>

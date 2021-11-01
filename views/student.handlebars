@@ -1,0 +1,79 @@
+<div class="bg-white shadow rounded overflow-hidden">
+    <div class="px-4 pt-0 pb-4 cover">
+        <div class="media align-items-end profile-head">
+            <div class="profile mr-3 mt-3"><img src="/images/avatar.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail"></div>
+            <div class="media-body mb-5 text-white">
+                {{#each users}}
+                <h3 class="mt-0 mb-0">{{student.name}}</h4>
+                <h5 class="mb-4"> <i></i>Class: {{student.class}}</h5>
+                <h5 class="mb-4"> <i></i>Faculty: {{student.faculty}}</h5>  
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="postlist" id="postlistfield">
+{{#each posts}}
+    <div class="card post {{_id}}">
+        <div class="card-header">
+            <div class="row">
+                <a class="card-title col-11" href="/student/{{userID}}"><strong>{{userName}}</strong></a>
+                {{#if (isYours userID @root.user._id)}}
+                <div class="dropdown col-1">
+                        <a class="fas fa-ellipsis-v" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" onclick="togEditpost('editpost{{_id}}')">Edit</a>
+                            <a id="deletepost{{_id}}" value="{{_id}}" class="dropdown-item" href="#">Delete</a>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{postContent}}</p>
+        </div>
+        <img class="card-img-bottom" src="/uploads/{{image}}">
+        <div>
+            <iframe width="100%" height="345" src="https://www.youtube.com/embed/{{video}}"></iframe>
+        </div>
+        <div class="card-footer commentfield">
+            <div class="row">
+                <input class="cmtinput col-10" id="cmtcontent{{_id}}" name="cmtcontent" placeholder="Write a comment" type="text">
+                <textarea hidden name="postID" id="post{{_id}}">{{_id}}</textarea>
+                <button class ="col-2 fab fa-telegram-plane" value="{{_id}}" id="cmtbutton{{_id}}"></button>
+            </div>        
+        </div>
+        <div class="cmtlist" id="cmtlistfield{{_id}}">
+        {{#each comment}}
+            <div class="card-footer cmt {{_id}}">
+                <div class="row">
+                    <h6 class="col-11">{{userName}}</h6>
+                    {{#if (isYours userID @root.user._id)}}
+                    <a class="col-1 fas fa-trash" id="deletecomment{{_id}}" value1="{{_id}}" value2="{{../_id}}"></a>
+                    {{/if}}
+                </div>
+                <p>{{cmtContent}}</p>
+            </div>
+        {{/each}}               
+        </div>
+    </div>
+    <div id="editpost{{_id}}" class="editpostsrc">
+        <a href="javascript:void(0)" class="closeEditpostbtn" onclick="closeEditpost('editpost{{_id}}')">&times;</a>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="mb-3">
+                    <label>Edit Content</label>
+                    <div class="input-group">
+                        <textarea class="form-control" id="newcontent{{_id}}">{{postContent}}</textarea>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn-lg btn-block" id="confirmedit{{_id}}" value="{{_id}}">Confirm</button>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+{{/each}}    
+</div>

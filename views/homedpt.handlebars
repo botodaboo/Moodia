@@ -1,0 +1,111 @@
+<button class="btn btn-primary" onclick="togEditpwd()">Change Password</button>
+
+<!-- Make a Noti -->
+<div class="card">
+    <form action="/addarticle" method="POST">
+        <div class="card-header">
+            <label>Title: </label>
+            <input type="text" name="notititle" class="logininput">
+        </div>
+        <div class="card-content">
+            <label class="ml-3">Content: </label>
+            <textarea name="noticontent" class="cmtinput"></textarea>
+        </div>
+        <div class="card-footer">
+            <label>Post this Article to: </label>
+            <select name="notito" style="width: 50%;">
+                    {{#each user.permission}}
+                    <option value="{{dptid}}">{{dptname}}</option>
+                    {{/each}}
+            </select>
+            <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+    </form>
+</div>
+
+<!-- Post -->
+<div class="postlist" id="postlistfield">
+{{#each posts}}
+    <div class="card post {{_id}}">
+        <div class="card-header">
+            <div class="row">
+                <a class="card-title col-11" href="/student/{{userID}}"><strong>{{userName}}</strong></a>
+                {{#if (isYours userID @root.user._id)}}
+                <div class="dropdown col-1">
+                        <a class="fas fa-ellipsis-v" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" onclick="togEditpost('editpost{{_id}}')">Edit</a>
+                            <a id="deletepost{{_id}}" value="{{_id}}" class="dropdown-item" href="#">Delete</a>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{postContent}}</p>
+        </div>
+        <img class="card-img-bottom" src="/uploads/{{image}}">
+        <div>
+            <iframe width="100%" height="345" src="https://www.youtube.com/embed/{{video}}"></iframe>
+        </div>
+        <div class="card-footer commentfield">
+            <div class="row">
+                <input class="cmtinput col-10" id="cmtcontent{{_id}}" name="cmtcontent" placeholder="Write a comment" type="text">
+                <textarea hidden name="postID" id="post{{_id}}">{{_id}}</textarea>
+                <button class ="col-2 fab fa-telegram-plane" value="{{_id}}" id="cmtbutton{{_id}}"></button>
+            </div>        
+        </div>
+        <div class="cmtlist" id="cmtlistfield{{_id}}">
+        {{#each comment}}
+            <div class="card-footer cmt {{_id}}">
+                <div class="row">
+                    <h6 class="col-11">{{userName}}</h6>
+                    {{#if (isYours userID @root.user._id)}}
+                    <a class="col-1 fas fa-trash" id="deletecomment{{_id}}" value1="{{_id}}" value2="{{../_id}}"></a>
+                    {{/if}}
+                </div>
+                <p>{{cmtContent}}</p>
+            </div>
+        {{/each}}               
+        </div>
+    </div>
+    <div id="editpost{{_id}}" class="editpostsrc">
+        <a href="javascript:void(0)" class="closeEditpostbtn" onclick="closeEditpost('editpost{{_id}}')">&times;</a>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="mb-3">
+                    <label>Edit Content</label>
+                    <div class="input-group">
+                        <textarea class="form-control" id="newcontent{{_id}}">{{postContent}}</textarea>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn-lg btn-block" id="confirmedit{{_id}}" value="{{_id}}">Confirm</button>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+{{/each}}    
+</div>
+
+<!-- Edit Password -->
+<div id="editpwd" class="editpwdsrc">
+    <a href="javascript:void(0)" class="closeEditpwdbtn" onclick="closeEditpwd()">&times;</a>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <form action="/editpwd/{{users._id}}" method="POST">
+                <div class="mb-3">
+                    <label>New Password</label>
+                    <div class="input-group">
+                        <input class="cmtinput form-control" name="password">
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn-lg btn-block" type="submit">Confirm</button>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>

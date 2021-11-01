@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{title}}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <script src='/javascripts/main.js'></script> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="shortcut icon" href="/images/cow-head-icon.png">
+</head>
+<body>    
+    <main>
+      <!--NAV BAR-->
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light">
+        <span style="font-size:30px;cursor:pointer" onclick="togMenu()">&#9776;</span>
+        <a class="navbar-brand mb-0 h1" href="/">MOODA</a>
+        <a class="fa fa-bell ml-auto p-2" onclick="togNoti()"></a>
+        <a class="fa fa-sign-out p-2" href="/logout"></a>  
+      </nav>
+
+      <!--LEFT MENU-->
+      <div id="leftMenu" class="sidemenu">
+        <a href="javascript:void(0)" class="closeMenubtn" onclick="closeMenu()">&times;</a>
+        <a href="/profile/{{user._id}}">Profile</a>
+        <a href="/dptlist">Department</a>
+        <a href="/stdlist">Student</a>
+        <a href="/articlelist">Notification</a>
+      </div>
+
+      <!--NOTI LIST-->    
+      <div id="notilist" class="notisrc">
+        <ul style="padding-left: 0;">
+            <div class="noti-header"><h5 class="notilist-title">Notifications</h5><a class="notilist-viewall" href="/articlelist">View All</a></div>
+            <hr class="notidiv">
+            <div class="notification-wrapper">
+              {{#each articles}}
+                <a class="content" href="/article/{{_id}}">    
+                    <div class="notification-item">
+                        <h5 class="item-title">{{title}}</h5>
+                    </div>
+                </a>
+                <hr class="notidiv">
+              {{/each}}
+            </div>
+        </ul>
+      </div>
+
+      <!--DIV THREE ZONES-->
+      <div class="container-fluid mainarea">
+        <div class="row">
+          <!--LEFT-->
+          <div class="col-3 leftside">
+          </div>
+
+          <!--MID-->               
+          <div class="col-7 midarea">
+            <div class="mainbody">
+              {{{body}}}
+            </div>
+          </div>
+
+          <!--RIGHT-->          
+          <div class="col-2 rightside">
+            <div class="toastlist">
+              <div class="toast" data-delay="5000" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                  <strong class="mr-auto">Faculty of Something</strong>
+                  <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="toast-body">
+                  Notification 1
+                </div>
+              </div>               
+            </div>
+          </div>
+         </div> 
+      </div> 
+    </main>
+</body>
+</html>
